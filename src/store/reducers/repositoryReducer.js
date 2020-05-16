@@ -1,5 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
- 
+
 const initialState = {
     data: null,
     showSuccessModal: false
@@ -12,21 +12,21 @@ const executeGetDataSuccess = (state, action) => {
         data: action.data
     }
 }
- 
+
 const executePostDataSuccess = (state, action) => {
     return {
         ...state,
         showSuccessModal: true
     }
 }
- 
+
 const executePutDataSuccess = (state, action) => {
     return {
         ...state,
         showSuccessModal: true
     }
 }
- 
+
 const executeDeleteDataSuccess = (state, action) => {
     return {
         ...state,
@@ -49,6 +49,6 @@ const reducer = (state = initialState, action) => {
             return state;
     }
 }
- 
+
 export default reducer;
 
