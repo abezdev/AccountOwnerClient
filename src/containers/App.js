@@ -5,7 +5,9 @@ import Layout from '../components/Layout/Layout';
 import Home from '../components/Home/Home';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import NotFound from '../components/ErrorPages/NotFound';
- 
+import OwnerList from './Owner/OwnerList/OwnerList';
+
+
 class App extends Component {
   render() {
     return (
@@ -13,6 +15,9 @@ class App extends Component {
         <Layout>
           <Switch>
             <Route path="/" exact component={Home} />
+
+            <Route path="/owner-list" component={OwnerList} />
+
             <Route path="*" component={NotFound} />
           </Switch>
         </Layout>
