@@ -1,35 +1,46 @@
-class Counter extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        count: 0
-      };
+const REQUESTING_DATA = 'REQUESTING_DATA'
+const RECEIVED_DATA = 'RECEIVED_DATA'
 
-    }
-    increment(){
-        this.setState(state => ({
-            count: state.count + 1
-        }))
-    }
-    decrement(){
-        this.setState(state => ({
-            count: state.count - 1
-        }))
-    }
-    reset(){
-        this.setState(state => ({
-            count: 0
-        }))
-    }
-    render() {
-      return (
-        <div>
-          <button className='inc' onClick={this.increment.bind(this)}>Increment!</button>
-          <button className='dec' onClick={this.decrement.bind(this)}>Decrement!</button>
-          <button className='reset' onClick={this.reset.bind(this)}>Reset</button>
-          <h1>Current Count: {this.state.count}</h1>
-        </div>
-      );
-    }
-  };
-  
+const requestingData = () => { return {type: REQUESTING_DATA} }
+const receivedData = (data) => { return {type: RECEIVED_DATA, users: data.users} }
+
+const handleAsync = () => {
+  return function(dispatch) {
+    // dispatch request action here
+dispatch(requestingData());
+    setTimeout(function() {
+      let data = {
+        users: ['Jeff', 'William', 'Alice']
+      }
+      // dispatch received data action here
+dispatch(receivedData(data));
+    }, 2500);
+  }
+};
+
+const defaultState = {
+  fetching: false,
+  users: []
+};
+
+const asyncDataReducer = (state = defaultState, action) => {
+  switch(action.type) {
+    case REQUESTING_DATA:
+      return {
+        fetching: true,
+        users: []
+      }
+    case RECEIVED_DATA:
+      return {
+        fetching: false,
+        users: action.users
+      }
+    default:
+      return state;
+  }
+};
+
+const store = Redux.createStore(
+  asyncDataReducer,
+  Redux.applyMiddleware(ReduxThunk.default)
+);
