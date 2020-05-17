@@ -1,46 +1,39 @@
-const REQUESTING_DATA = 'REQUESTING_DATA'
-const RECEIVED_DATA = 'RECEIVED_DATA'
+class DisplayMessages extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            input: '',
+            messages: []
+        }
+    }
+    handleChange(e) {
+        this.setState({
+            input: e.target.value,
+            messages: this.state.messages
+        })
+    }
+    submitMessage() {
+        this.setState({
 
-const requestingData = () => { return {type: REQUESTING_DATA} }
-const receivedData = (data) => { return {type: RECEIVED_DATA, users: data.users} }
-
-const handleAsync = () => {
-  return function(dispatch) {
-    // dispatch request action here
-dispatch(requestingData());
-    setTimeout(function() {
-      let data = {
-        users: ['Jeff', 'William', 'Alice']
-      }
-      // dispatch received data action here
-dispatch(receivedData(data));
-    }, 2500);
-  }
+            messages: [...this.state.messages, this.state.input],
+            input: ''
+        })
+    }
+    render() {
+        return (
+            <div>
+                <h2>Type in a new Message:</h2>
+                <input value={this.state.input} onChange={this.handleChange.bind(this)} />
+                <button onClick={this.submitMessage.bind(this)}>asd</button>
+                <ul>{this.state.messages.map(m => <li>{m}</li>)}</ul>{this.state.input}
+            </div>
+        );
+    }
 };
+{/* <ul>{this.state.messages.map(x => <li>{x}</li>)}</ul>
 
-const defaultState = {
-  fetching: false,
-  users: []
-};
-
-const asyncDataReducer = (state = defaultState, action) => {
-  switch(action.type) {
-    case REQUESTING_DATA:
-      return {
-        fetching: true,
-        users: []
-      }
-    case RECEIVED_DATA:
-      return {
-        fetching: false,
-        users: action.users
-      }
-    default:
-      return state;
-  }
-};
-
-const store = Redux.createStore(
-  asyncDataReducer,
-  Redux.applyMiddleware(ReduxThunk.default)
-);
+    <ul>
+        {this.state.messages.map((x, i) => {
+            return <li key={i}>{x}</li>
+        })}
+    </ul> */}
