@@ -1,24 +1,35 @@
-class MyComponent extends React.Component {
+class Counter extends React.Component {
     constructor(props) {
-        super(props);
-        this.state = {
-            name: 'Initial State'
-        };
-        this.handleClick = this.handleClick.bind(this);
+      super(props);
+      this.state = {
+        count: 0
+      };
+
     }
-    handleClick() {
-         
-        this.setState({
-            name: '  React Rocks!'
-        });;
-         
-    };
+    increment(){
+        this.setState(state => ({
+            count: state.count + 1
+        }))
+    }
+    decrement(){
+        this.setState(state => ({
+            count: state.count - 1
+        }))
+    }
+    reset(){
+        this.setState(state => ({
+            count: 0
+        }))
+    }
     render() {
-        return (
-            <div>
-                <button onClick={this.handleClick}>Click Me</button>
-                <h1>{this.state.name}</h1>
-            </div>
-        );
+      return (
+        <div>
+          <button className='inc' onClick={this.increment.bind(this)}>Increment!</button>
+          <button className='dec' onClick={this.decrement.bind(this)}>Decrement!</button>
+          <button className='reset' onClick={this.reset.bind(this)}>Reset</button>
+          <h1>Current Count: {this.state.count}</h1>
+        </div>
+      );
     }
-};
+  };
+  
