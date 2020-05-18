@@ -58,11 +58,11 @@ class OwnerList extends Component {
     }
 }
 
-
-const mapStateToProps = (state) => {     
-    return {  
-       data: state.data     
-    } 
+//https://www.freecodecamp.org/learn/front-end-libraries/react-and-redux/map-state-to-props
+const mapStateToProps = (state) => {
+    return {
+        data: state.repository.data
+    }
 }
 const mapDispatchToProps = (dispatch) => {
      return {

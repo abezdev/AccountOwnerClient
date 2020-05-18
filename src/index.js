@@ -9,11 +9,19 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 
 import repositoryReducer from './store/reducers/repositoryReducer';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
  
-const store = createStore(repositoryReducer, applyMiddleware(thunk));
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+import errorHandlerReducer from './store/reducers/errorHandlerReducer';
+
+const rootReducers = combineReducers({
+    repository: repositoryReducer,
+    errorHandler: errorHandlerReducer
+})
+
+const store = createStore(rootReducers, applyMiddleware(thunk));
+ReactDOM.render(<Provider store={store}><App /></Provider>, 
+    document.getElementById('root'));
 // ReactDOM.render(
 //   <React.StrictMode>
 //     <App />
